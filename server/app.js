@@ -1,0 +1,14 @@
+const express = require("express");
+const cookieParser = require("cookie-parser");
+const app = express();
+const dbConnection = require("./config/db.config");
+require("dotenv").config();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+dbConnection(process.env.MONGO_URI);
+const Customer = require("./routes/customer.routes");
+const Admin = require("./routes/admin.routes");
+app.use("/api/v1/customer", Customer);
+app.use("/api/v1/admin", Admin);
+module.exports = app;

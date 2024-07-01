@@ -1,0 +1,45 @@
+
+.navbar-brand img {
+  height: 30px;
+}
+.navbar-text {
+  margin-right: 1rem;
+}
+.form-control {
+  width: 400px;
+}
+
+
+.custom-button {
+border-color: #f87217 !important; /* Orange outline color */
+color: #f87217 !important;        /* Orange text color */
+}
+
+.custom-button:hover {
+background-color: #f87217 !important; /* Orange background on hover */
+color: white !important;              /* White text on hover */
+}
+
+
+
+.custom-buttonwhite {
+border-color: #f87217 !important; /* Orange outline color */
+color: #f87217 !important;        /* Orange text color */
+}
+
+.custom-buttonwhite:hover {
+background-color: white !important; /* Orange background on hover */
+color: #f87217 !important;              /* White text on hover */
+}
+
+.nav-link {
+color: white !important; /* Orange text color */
+transition: color 0.3s, background-color 0.3s; /* Smooth transition */
+}
+
+.nav-link:hover {
+color: white !important; /* White text color on hover */
+background-color: #e05c10 !important; /* Slightly darker orange on hover */
+}
+
+

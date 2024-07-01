@@ -1,0 +1,20 @@
+body {
+    background-color: #f7f7f7;
+}
+
+.card {
+    max-width: 500px;
+    margin: auto;
+}
+
+.invalid-feedback {
+    display: none;
+}
+
+
+.img_11 {
+    height: 50px;
+    width: 150px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+  }
