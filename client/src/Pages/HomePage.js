@@ -11,7 +11,6 @@ import { MultiDataContext } from "../ContextAPI/MultiDataContext";
 import BarLoader from "../Loaders/BarLoader";
 function HomePage({ cartItems, setCartItems }) {
   const { products, productsLoading } = useContext(MultiDataContext);
-  console.log(cartItems);
 
   const addToCart = (item) => {
     const existingItemIndex = cartItems.findIndex(
@@ -83,9 +82,7 @@ function HomePage({ cartItems, setCartItems }) {
                 <div className="text-center">
                   <BarLoader />
                 </div>
-              ) : (
-                products &&
-                Array.isArray(products) &&
+              ) : products && Array.isArray(products) && products.length > 0 ? (
                 products.map((product) => (
                   <div class="col-lg-3 col-md-6 col-sm-6 d-flex">
                     <div class="card w-100 my-2 shadow-2-strong">
@@ -97,7 +94,7 @@ function HomePage({ cartItems, setCartItems }) {
                       />
                       <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{product.productName}</h5>
-                        <p class="card-text">RS#{product.productPrice}</p>
+                        <p class="card-text">${product.productPrice}</p>
                         <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
                           <a
                             href="#!"
@@ -117,6 +114,18 @@ function HomePage({ cartItems, setCartItems }) {
                     </div>
                   </div>
                 ))
+              ) : (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <h1 style={{ textAlign: "center", color: "white" }}>
+                    No product in database
+                  </h1>
+                </div>
               )}
             </div>
           </div>

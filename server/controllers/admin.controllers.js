@@ -3,6 +3,7 @@ const adminModel = require("../models/admin.models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const productModel = require("../models/product.models");
+const orderModel = require("../models/order.models");
 exports.signUp = async (req, res) => {
   try {
     const { adminName, adminEmail, adminPassword, phoneNumber } = req.body;
@@ -131,6 +132,20 @@ exports.addProduct = async (req, res) => {
 };
 exports.loadOrders = async (req, res) => {
   try {
+    const orders = await orderModel
+      .find()
+      .populate("customer")
+      .populate({
+        path: "payment",
+        populate: {
+          path: "products",
+          model: "Product",
+        },
+      });
+    return res.status(200).json({
+      statusCode: STATUS_CODES[200],
+      orders,
+    });
   } catch (error) {
     return res.status(500).json({});
   }

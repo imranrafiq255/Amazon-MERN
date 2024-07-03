@@ -67,8 +67,22 @@ function Register() {
           <div class="card-body">
             <h1 class="card-title">Create account</h1>
             <form id="create-account-form" onSubmit={submitForm}>
-              <div className="w-full flex justify-center">
-                <div className="w-20 h-20 relative">
+              <div
+                className="w-full flex justify-center"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  width: "100%",
+                }}
+              >
+                <div
+                  className="w-20 h-20 relative"
+                  style={{
+                    width: "5rem",
+                    height: "5rem",
+                    position: "relative",
+                  }}
+                >
                   <img
                     src={
                       customerImage
@@ -77,6 +91,12 @@ function Register() {
                     }
                     alt=""
                     className="w-full h-full cursor-pointer rounded-full"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      cursor: "pointer",
+                      borderRadius: "50%",
+                    }}
                     onClick={customerImagePicker}
                   />
                   {!customerImage && (
@@ -84,12 +104,21 @@ function Register() {
                       src={require("../../src/images/plus.png")}
                       alt=""
                       className="w-6 h-6 absolute top-0 right-0 cursor-pointer"
+                      style={{
+                        width: "1.5rem",
+                        height: "1.6rem",
+                        position: "absolute",
+                        top: 0,
+                        right: 0,
+                        cursor: "pointer",
+                      }}
                       onClick={customerImagePicker}
                     />
                   )}
                   <input
                     type="file"
                     className="hidden"
+                    style={{ visibility: "hidden" }}
                     id="image"
                     name="customerAvatar"
                     accept="image/*"
@@ -175,6 +204,7 @@ function Register() {
                 <button
                   type="submit"
                   class="btn btn-warning btn-block text-center w-full"
+                  style={{ width: "100%" }}
                 >
                   Continue
                 </button>

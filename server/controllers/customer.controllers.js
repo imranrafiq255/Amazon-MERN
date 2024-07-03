@@ -3,6 +3,15 @@ const customerModel = require("../models/customer.models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const productModel = require("../models/product.models");
+var braintree = require("braintree");
+const orderModel = require("../models/order.models");
+const paymentModel = require("../models/payment.models");
+var gateway = new braintree.BraintreeGateway({
+  environment: braintree.Environment.Sandbox,
+  merchantId: process.env.BRAINTREE_MERCHANT_ID,
+  publicKey: process.env.BRAINTREE_PUBLIC_KEY,
+  privateKey: process.env.BRAINTREE_PRIVATE_KEY,
+});
 exports.signUp = async (req, res) => {
   try {
     const { customerName, customerEmail, customerPassword, phoneNumber } =
@@ -119,6 +128,67 @@ exports.loadProducts = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       statusCode: STATUS_CODES[500],
+      message: error.message,
+    });
+  }
+};
+exports.brainTreeToken = async (req, res) => {
+  try {
+    gateway.clientToken.generate({}, function (error, response) {
+      if (error) {
+        return res.status(403).json({
+          message: error,
+        });
+      }
+      return res.status(200).json({
+        response,
+      });
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+exports.brainTreePayment = async (req, res) => {
+  try {
+    const { product, nonce } = req.body;
+    gateway.transaction.sale(
+      {
+        amount: product.totalAmount,
+        paymentMethodNonce: nonce,
+        options: {
+          submitForSettlement: true,
+        },
+      },
+      async function (error, result) {
+        if (error) {
+          return res.status(500).json({
+            message: error.message,
+          });
+        }
+        try {
+          const payment = await new paymentModel({
+            products: product.products,
+            totalAmount: product.totalAmount,
+          }).save();
+          await new orderModel({
+            payment: payment._id,
+            customer: req.customer._id,
+            orderStatus: "pending",
+          }).save();
+          return res.status(200).json({
+            message: `Order is placed successfully`,
+          });
+        } catch (err) {
+          return res.status(500).json({
+            message: err.message,
+          });
+        }
+      }
+    );
+  } catch (error) {
+    res.status(500).json({
       message: error.message,
     });
   }

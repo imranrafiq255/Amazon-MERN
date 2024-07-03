@@ -6,6 +6,8 @@ const {
   loadCurrentCustomer,
   logout,
   loadProducts,
+  brainTreeToken,
+  brainTreePayment,
 } = require("../controllers/customer.controllers");
 const isCustomerAuthenticated = require("../middlewares/isCustomerAuthenticated.middlewares");
 
@@ -19,4 +21,9 @@ Router.route("/load-current-customer").get(
 );
 Router.route("/logout").get(isCustomerAuthenticated, logout);
 Router.route("/load-products").get(loadProducts);
+Router.route("/braintree/token").get(isCustomerAuthenticated, brainTreeToken);
+Router.route("/braintree/payment").post(
+  isCustomerAuthenticated,
+  brainTreePayment
+);
 module.exports = Router;

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import Header from "../Common/Header";
 import Footer from "../Common/Footer";
+import { MultiDataContext } from "../ContextAPI/MultiDataContext";
 
 function Men({ cartItems, setCartItems }) {
+  const { products, productsLoading } = useContext(MultiDataContext);
   const addToCart = (item) => {
     const existingItemIndex = cartItems.findIndex(
       (cartItem) => cartItem._id === item._id
@@ -20,59 +22,6 @@ function Men({ cartItems, setCartItems }) {
   const isInCart = (itemId) => {
     return cartItems.some((item) => item._id === itemId);
   };
-  const items = [
-    {
-      id: 1,
-      name: "T-shirts",
-      price: 34.5,
-      image:
-        "https://images.unsplash.com/photo-1617137968427-85924c800a22?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWVucyUyMGZhc2hpb258ZW58MHx8MHx8fDA%3D",
-      description: "T-shirts with multiple colors, for men and lady",
-    },
-    {
-      id: 2,
-      name: "Winter Jacket",
-      price: 120.0,
-      image:
-        "https://images.unsplash.com/photo-1618886614638-80e3c103d31a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bWVucyUyMGZhc2hpb258ZW58MHx8MHx8fDA%3D",
-      description: "Winter Jacket for Men and Women, All sizes",
-    },
-    {
-      id: 3,
-      name: "T-shirts",
-      price: 34.5,
-      image:
-        "https://i.pinimg.com/236x/7c/a6/6b/7ca66b1bfcfb87ea2e0387b375776d0b.jpg",
-      description: "T-shirts with multiple colors, for men and lady",
-    },
-    {
-      id: 4,
-      name: "Winter Jacket",
-      price: 120.0,
-      image:
-        "https://images.unsplash.com/photo-1618886614638-80e3c103d31a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bWVucyUyMGZhc2hpb258ZW58MHx8MHx8fDA%3D",
-      description: "Winter Jacket for Men and Women, All sizes",
-    },
-    {
-      id: 5,
-      name: "T-shirts",
-      price: 34.5,
-      image:
-        "https://i.pinimg.com/236x/7c/a6/6b/7ca66b1bfcfb87ea2e0387b375776d0b.jpg",
-      description: "T-shirts with multiple colors, for men and lady",
-    },
-    {
-      id: 6,
-      name: "Winter Jacket",
-      price: 120.0,
-      image:
-        "https://images.unsplash.com/photo-1617137968427-85924c800a22?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWVucyUyMGZhc2hpb258ZW58MHx8MHx8fDA%3D",
-      description: "Winter Jacket for Men and Women, All sizes",
-    },
-
-    // Add more products as needed
-  ];
-
   return (
     <>
       <Header />
@@ -377,82 +326,47 @@ function Men({ cartItems, setCartItems }) {
                 </header>
 
                 <div className="row">
-                  {items.map((item) => (
-                    <div key={item.id} className="col-lg-4 col-md-6 col-sm-6">
-                      <div className="card w-100 my-2 shadow-2-strong">
-                        <img
-                          src={item.image}
-                          className="card-img-top"
-                          alt={item.name}
-                        />
-                        <div className="card-body d-flex flex-column">
-                          <div className="d-flex flex-row justify-content-between">
-                            <h5 className="mb-1">${item.price}</h5>
-                            <span className="text-danger">
-                              <s>$49.99</s>
-                            </span>
-                          </div>
-                          <p className="card-text">{item.description}</p>
-                          <div className="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                            <button
-                              onClick={() => addToCart(item)}
-                              className="btn btn-primary shadow-0 me-1"
-                            >
-                              {isInCart(item.id)
-                                ? "Remove from Cart"
-                                : "Add to Cart"}
-                            </button>
+                  {productsLoading ? (
+                    <div></div>
+                  ) : products &&
+                    Array.isArray(products) &&
+                    products.length > 0 ? (
+                    products.map((product) => (
+                      <div
+                        key={product._id}
+                        className="col-lg-4 col-md-6 col-sm-6"
+                      >
+                        <div className="card w-100 my-2 shadow-2-strong">
+                          <img
+                            src={product.productImage}
+                            className="card-img-top"
+                            alt={product.productName}
+                            style={{ padding: "20px" }}
+                          />
+                          <div className="card-body d-flex flex-column">
+                            <div className="d-flex flex-row justify-content-between">
+                              <h5 className="mb-1">${product.productPrice}</h5>
+                            </div>
+                            <div className="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
+                              <button
+                                onClick={() => addToCart(product)}
+                                className="btn btn-primary shadow-0 me-1"
+                              >
+                                {isInCart(product._id)
+                                  ? "Remove from Cart"
+                                  : "Add to Cart"}
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))
+                  ) : (
+                    ""
+                  )}
                 </div>
 
                 <hr />
-
-                <nav
-                  aria-label="Page navigation example"
-                  className="d-flex justify-content-center mt-3"
-                >
-                  <ul className="pagination">
-                    <li className="page-item disabled">
-                      <a className="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                      </a>
-                    </li>
-                    <li className="page-item active">
-                      <a className="page-link" href="#">
-                        1
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="#">
-                        2
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="#">
-                        3
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="#">
-                        4
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="#">
-                        5
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
               </div>
             </div>
           </div>

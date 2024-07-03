@@ -10,9 +10,6 @@ const orderSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Payment",
     },
-    shippingInfo: {
-      type: String,
-    },
     orderStatus: {
       type: String,
     },

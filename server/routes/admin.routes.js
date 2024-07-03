@@ -5,6 +5,7 @@ const {
   loadCurrentAdmin,
   logout,
   addProduct,
+  loadOrders,
 } = require("../controllers/admin.controllers");
 const isAdminAuthenticated = require("../middlewares/isAdminAuthenticated.middlewares");
 const singleUpload = require("../middlewares/single-image.middlewares");
@@ -20,4 +21,5 @@ Router.route("/add-product").post(
   singleUpload,
   addProduct
 );
+Router.route("/load-orders").get(isAdminAuthenticated, loadOrders);
 module.exports = Router;

@@ -26,7 +26,14 @@ function SignIn() {
   };
   return (
     <div>
-      <div class="flex justify-center items-center">
+      <div
+        class="flex justify-center items-center"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <div class="row">
           <div class="col-md">
             <img
@@ -37,7 +44,16 @@ function SignIn() {
           </div>
         </div>
       </div>
-      <div class="flex items-center justify-center w-full h-full">
+      <div
+        class="flex items-center justify-center w-full h-full"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: "100%",
+        }}
+      >
         <div class="row">
           <div class="col-md">
             <form onSubmit={submitForm}>
