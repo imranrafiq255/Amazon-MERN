@@ -17,7 +17,7 @@ import BarLoader from "../Loaders/BarLoader";
 function MenuRoutes() {
   const [cartItems, setCartItems] = useState([]);
   const [customer, setCustomer] = useState(null);
-  const [loading, setLoading] = useState(true); // Initialize as true to show loader initially
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadCustomerData = async () => {

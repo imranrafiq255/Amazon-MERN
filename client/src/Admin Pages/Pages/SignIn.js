@@ -51,7 +51,11 @@ function SignIn() {
             <form onSubmit={submitForm}>
               <div class="sign-in">Sign In</div>
               <div class="form-group">
-                <label id="words_1" for="exampleInputEmail1">
+                <label
+                  id="words_1"
+                  for="exampleInputEmail1"
+                  style={{ color: "black" }}
+                >
                   Email
                 </label>
                 <input
@@ -67,7 +71,11 @@ function SignIn() {
                 <small id="emailHelp" class="form-text text-muted"></small>
               </div>
               <div class="form-group">
-                <label id="words_2" for="exampleInputPassword1">
+                <label
+                  id="words_2"
+                  for="exampleInputPassword1"
+                  style={{ color: "black" }}
+                >
                   Password{" "}
                 </label>
                 <input

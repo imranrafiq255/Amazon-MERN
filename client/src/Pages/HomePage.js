@@ -32,7 +32,6 @@ function HomePage({ cartItems, setCartItems }) {
     <div>
       <>
         <Header />
-
         <section class="pt-3">
           <div class="container">
             <div class="row gx-3">

@@ -33,7 +33,7 @@ function Orders() {
       <Header />
       <body id="OrdersPage">
         <div class="container mt-5">
-          <h1 style={{ color: "white" }}>ORDERS</h1>
+          <h1 style={{ color: "black" }}>ORDERS</h1>
           <div class="row tm-content-row">
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
               <div class="tm-bg-primary-dark tm-block tm-block-products">

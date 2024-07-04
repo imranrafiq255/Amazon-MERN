@@ -17,13 +17,8 @@ const AddProduct = () => {
     customerAvatar: null,
   });
   const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setSelectedImage(reader.result);
-      };
-      reader.readAsDataURL(file);
+    if (event.target.files[0]) {
+      setSelectedImage(event.target.files[0]);
     }
   };
 
@@ -169,7 +164,7 @@ const AddProduct = () => {
                     <div className="tm-product-img-dummy mx-auto">
                       {selectedImage ? (
                         <img
-                          src={selectedImage}
+                          src={URL.createObjectURL(selectedImage)}
                           alt="Selected"
                           className="img-fluid"
                         />

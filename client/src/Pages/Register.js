@@ -42,6 +42,7 @@ function Register() {
         },
       });
       console.log(response.data.message);
+      setLoading(false);
       navigate("/signin");
     } catch (error) {
       console.log(error.response.data.message);
@@ -137,6 +138,11 @@ function Register() {
                   id="name"
                   name="customerName"
                   placeholder="First and last name"
+                  style={{
+                    background: "white",
+                    border: "1px solid black",
+                    color: "black",
+                  }}
                   required
                   onChange={(e) => handleCustomerForm(e)}
                 />
@@ -153,6 +159,11 @@ function Register() {
                   id="email"
                   placeholder="Enter email address"
                   name="customerEmail"
+                  style={{
+                    background: "white",
+                    border: "1px solid black",
+                    color: "black",
+                  }}
                   required
                   onChange={(e) => handleCustomerForm(e)}
                 />
@@ -171,6 +182,11 @@ function Register() {
                   placeholder="At least 6 characters"
                   required
                   onChange={(e) => handleCustomerForm(e)}
+                  style={{
+                    background: "white",
+                    border: "1px solid black",
+                    color: "black",
+                  }}
                 />
                 <small class="form-text text-muted">
                   Passwords must be at least 6 characters.
@@ -190,6 +206,11 @@ function Register() {
                   placeholder="Re enter your password"
                   required
                   onChange={(e) => setRetypePassword(e.target.value)}
+                  style={{
+                    background: "white",
+                    border: "1px solid black",
+                    color: "black",
+                  }}
                 />
                 <div class="invalid-feedback" id="repasswordError">
                   Passwords do not match.

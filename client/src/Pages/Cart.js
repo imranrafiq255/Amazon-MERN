@@ -3,6 +3,7 @@ import Header from "../Common/Header";
 import Footer from "../Common/Footer";
 import axios from "axios";
 import DropIn from "braintree-web-drop-in-react";
+import { Navigate } from "react-router-dom";
 function Cart({ cartItems }) {
   const [clientToken, setClientToken] = useState("");
   const [items, setItems] = useState(cartItems);
@@ -56,6 +57,7 @@ function Cart({ cartItems }) {
         }
       );
       console.log("Payment successful:", paymentResponse.data);
+      Navigate("/");
     } catch (error) {
       console.error(
         "Payment error:",
